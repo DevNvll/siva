@@ -1,0 +1,8 @@
+{
+  "project": "siva",
+  "functions": {
+    "pages/api/**.js": {
+      "includeFiles": "session/**.json"
+    }
+  }
+}
