@@ -12,14 +12,20 @@ import StoriesList from "components/profile/StoriesList"
 import NotFound from "../../components/404"
 import IsPrivate from "../../components/profile/IsPrivate"
 
+import getProfile from "../../instagram/getProfile"
+import getPosts from "../../instagram/getFeed"
+import getStories from "../../instagram/getStories"
+import getHighlights from "../../instagram/getHighlights"
+
 export default ({
+  username,
   profile,
   posts,
   stories,
   nextMaxId,
   isPrivate,
   notFound,
-  username
+  highlights
 }) => {
   const [activeTab, setActiveTab] = useState(1)
 
@@ -37,7 +43,7 @@ export default ({
             hasStories={!isPrivate && Boolean(stories.length)}
           />
           {!isPrivate && profile.has_highlight_reels && (
-            <Stories isPrivate={isPrivate} stories={[]} />
+            <Stories isPrivate={isPrivate} stories={highlights} />
           )}
         </div>
         <div className="bg-white rounded shadow-xl -mt-16 md:p-6 p-2 md:mx-12">
@@ -126,41 +132,26 @@ export default ({
 }
 
 export async function getServerSideProps(context) {
+  const username = context.query.username
   try {
-    const protocol =
-      process.env.NODE_ENV === "production" ? "https://" : "http://"
-    const profileRes = await fetch(
-      protocol +
-        context.req.headers.host +
-        "/api/profile?username=" +
-        context.query.username
-    )
-    const { profile, isPrivate } = await profileRes.json()
+    const { profile, isPrivate } = await getProfile(username)
 
     if (isPrivate) {
       return { props: { profile, isPrivate: true } }
     }
 
-    const storiesRes = await fetch(
-      protocol +
-        context.req.headers.host +
-        "/api/stories?username=" +
-        context.query.username
-    )
-    const stories = await storiesRes.json()
+    const stories = await getStories(username)
 
-    const feedRes = await fetch(
-      protocol +
-        context.req.headers.host +
-        "/api/feed?username=" +
-        context.query.username
+    const { results: posts, nextMaxId: nextMaxId } = await getPosts(
+      context.query.username
     )
-    const {
-      posts: { results: posts, nextMaxId: nextMaxId }
-    } = await feedRes.json()
+
+    const highlights = await getHighlights(username)
+
+    console.log(highlights)
 
     return {
-      props: { profile, posts, nextMaxId, stories }
+      props: { profile, posts, nextMaxId, stories, highlights }
     }
   } catch (err) {
     return { props: { notFound: true, username: context.query.username } }

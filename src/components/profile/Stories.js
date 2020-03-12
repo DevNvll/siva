@@ -7,14 +7,26 @@ export default function Stories({ stories, profile }) {
     <div className="self-center">
       <div
         className={classNames(
-          "grid grid-cols-3 md:grid-flow-row pt-4 gap-4 h-24 overflow-hidden mt-8 md:mt-0",
+          `grid grid-cols-3 md:grid-cols-${
+            stories.length <= 10 ? stories.length : 10
+          } pt-4 h-24 h-32 gap-4 overflow-hidden mt-8 md:pt-2 md:mt-0`,
           { "h-auto": storiesOpen }
         )}
       >
-        <div className="flex flex-col h-20 w-20 rounded-full shadow-lg bg-white"></div>
-        <div className="flex flex-col h-20 w-20 rounded-full shadow-lg bg-white"></div>
-        <div className="flex flex-col h-20 w-20 rounded-full shadow-lg bg-white"></div>
-        <div className="flex flex-col h-20 w-20 rounded-full shadow-lg bg-white"></div>
+        {stories.map((s, m) => {
+          return (
+            <div
+              key={m}
+              className="flex flex-col content-center justify-center text-center cursor-pointer"
+            >
+              <img
+                src={s.cover_media.cropped_image_version.url}
+                className="self-center h-20 w-20 rounded-full shadow-lg bg-white border-4 border-solid border-white"
+              />
+              <p className="font-bold text-white text-sm pt-2">{s.title}</p>
+            </div>
+          )
+        })}
       </div>
       <div
         className={classNames("pt-4 transform text-white", {
@@ -22,7 +34,9 @@ export default function Stories({ stories, profile }) {
         })}
       >
         <svg
-          className="md:hidden h-8 cursor-pointer self-center w-full "
+          className={classNames("h-8 cursor-pointer self-center w-full", {
+            "md:hidden": stories.length <= 10
+          })}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -38,7 +52,9 @@ export default function Stories({ stories, profile }) {
           />
         </svg>
         <svg
-          className="md:hidden h-8 cursor-pointer self-center w-full -mt-6"
+          className={classNames("h-8 cursor-pointer self-center w-full -mt-6", {
+            "md:hidden": stories.length <= 10
+          })}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
