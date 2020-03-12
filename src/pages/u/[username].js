@@ -46,7 +46,7 @@ export default ({
             <Stories isPrivate={isPrivate} stories={highlights} />
           )}
         </div>
-        <div className="bg-white rounded shadow-xl -mt-16 md:p-6 p-2 md:mx-12">
+        <div className="bg-white rounded shadow-xl -mt-16 md:p-6 p-2 md:mx-12 mb-4">
           {!isPrivate ? (
             <>
               <ul className="flex pb-2 md:pb-4">
