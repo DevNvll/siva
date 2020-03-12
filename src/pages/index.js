@@ -6,7 +6,7 @@ export default function Index() {
   const router = useRouter()
   function onSearch(e) {
     e.preventDefault()
-    router.push("/u/" + e.target.username.value)
+    router.push("/search/" + e.target.username.value)
   }
 
   return (
@@ -20,7 +20,7 @@ export default function Index() {
           <h2 className="text-2xl text-white">Browse Instagram anonymously</h2>
           <form className="w-full flex flex-col" onSubmit={onSearch}>
             <input
-              autocomplete="off"
+              autoComplete="off"
               name="username"
               placeholder="Search for an Instagram username..."
               className="flex-grow rounded bg-white bg-purple-500 p-4 mt-4 focus:outline-none focus:bg-white transition duration-300 ease-in-out focus:z-20"

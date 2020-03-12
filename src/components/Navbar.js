@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import Link from "next/link"
 
-export default function Navbar() {
+export default function Navbar({ search }) {
   const router = useRouter()
   return (
     <div className="flex bg-purple-800 shadow-sm fixed top-0 inset-x-0 z-100 h-16 items-center z-50">
@@ -14,14 +14,15 @@ export default function Navbar() {
           </div>
           <div className="flex flex-grow lg:w-3/4 xl:w-4/5 w-full">
             <form
-              autocomplete="off"
+              autoComplete="off"
               className="w-full flex mx-auto"
               onSubmit={e => {
                 e.preventDefault()
-                router.push("/u/" + e.target.username.value)
+                router.push("/search/" + e.target.username.value)
               }}
             >
               <input
+                defaultValue={search}
                 name="username"
                 className="flex flex-grow transition-colors duration-100 ease-in-out focus:outline-0 border border-transparent focus:bg-white placeholder-gray-500 focus:placeholder-gray-800 rounded bg-gray-700 py-2 pr-4 pl-4 block m-4 md:m-0 appearance-none leading-normal ds-input outline-none hover:bg-gray-500 placeholder-gray-900"
                 placeholder="Search..."

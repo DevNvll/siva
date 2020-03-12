@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import classNames from "classnames"
+import Play from "../icons/Play"
 
 export default function MediaCard({ media }) {
   const [index, setIndex] = useState(0)
@@ -71,7 +72,7 @@ export default function MediaCard({ media }) {
           className="absolute text-white"
           style={{ top: "50%", left: "50%" }}
         >
-          Video
+          <Play className="text-white shadow-lg" />
         </div>
       )}
       {isCarousel && (
