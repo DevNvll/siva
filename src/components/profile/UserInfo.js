@@ -6,7 +6,7 @@ export default function UserInfo({ profile, hasStories }) {
       <img
         src={profile.profile_pic_url}
         className={classNames(
-          "rounded-full shadow-lg self-center md:mr-12 h-40 w-40 sm:m-12",
+          "rounded-full shadow-lg self-center md:mr-12  sm:m-12",
           { "border-pink-800 border-solid border-4": hasStories }
         )}
       />
