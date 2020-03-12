@@ -19,9 +19,9 @@ export default function Search({ results, username }) {
         `}
       </style>
       <Navbar search={username} />
-      <div className="pt-20 pb-4 w-full bg-purple-700 px-0 md:px-4">
+      <div className="pt-20 pb-4 w-full bg-purple-700 px-2 md:px-4">
         {results.length ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {results.map((r, i) => {
               return (
                 <Link href={"/u/" + r.username} key={i}>
