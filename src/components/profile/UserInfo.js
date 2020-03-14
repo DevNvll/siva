@@ -15,7 +15,7 @@ export default function UserInfo({ profile, hasStories }) {
           <h1 className="text-2xl font-bold text-white pr-4">
             {profile.username}
           </h1>
-          <button className="rounded bg-purple-600 hover:bg-purple-700 active:bg-purple-900 p-2 font-bold shadow-md focus:outline-none active:bg-red-100">
+          <button className="rounded bg-purple-600 hover:bg-purple-700 active:bg-purple-900 p-2 font-bold shadow-md focus:outline-none">
             Favorite
           </button>
         </div>

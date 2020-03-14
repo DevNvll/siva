@@ -19,7 +19,7 @@ export default function MediaCard({ media }) {
     <div className="relative">
       <a href={externalCurrentUrl} target="_blank" className="w-full relative">
         <img
-          className="relative object-cover object-top w-full rounded"
+          className="relative object-cover  w-full rounded"
           style={{ height: "500px" }}
           src={currentUrl}
         />

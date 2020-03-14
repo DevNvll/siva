@@ -11,7 +11,7 @@ export default function StoriesList({ stories }) {
                 target="_blank"
               >
                 <img
-                  className="object-cover w-full rounded"
+                  className="object-cover rounded"
                   style={{ height: "500px" }}
                   src={p.carousel_media[0].image_versions2.candidates[0].url}
                 />
@@ -19,16 +19,23 @@ export default function StoriesList({ stories }) {
             )
           if (p.media_type === 2)
             return (
-              <a
-                key={p.id}
-                href={p.image_versions2.candidates[0].url}
-                target="_blank"
-              >
-                <img
-                  className="object-cover w-full rounded"
+              <a key={p.id} href={p.video_versions[0].url} target="_blank">
+                <video
+                  autoPlay={false}
+                  onMouseOver={props => {
+                    props.currentTarget.play()
+                  }}
+                  onMouseOut={props => {
+                    props.currentTarget.currentTime = 0
+                    props.currentTarget.pause()
+                  }}
+                  muted
+                  className="w-full rounded"
+                  className="w-full"
                   style={{ height: "500px" }}
-                  src={p.image_versions2.candidates[0].url}
-                />
+                >
+                  <source src={p.video_versions[0].url} type="video/mp4" />
+                </video>
               </a>
             )
           return (

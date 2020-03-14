@@ -23,7 +23,7 @@ export default function Index() {
               autoComplete="off"
               name="username"
               placeholder="Search for an Instagram username..."
-              className="flex-grow rounded bg-white bg-purple-500 p-4 mt-4 focus:outline-none focus:bg-white transition duration-300 ease-in-out"
+              className="flex-grow rounded bg-white bg-purple-500 p-4 mt-4 focus:outline-none focus:bg-white transition duration-300 ease-in-out text-purple-300 focus:text-gray-900"
             />
             <button className="md:hidden rounded bg-purple-600 text-white p-2 my-4 flex content-center justify-center focus:outline-none focus:bg-purple-700 ">
               <svg

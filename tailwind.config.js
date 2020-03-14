@@ -1,4 +1,7 @@
 module.exports = {
+  variants: {
+    backgroundColor: ["responsive", "hover", "focus", "active"]
+  },
   theme: {
     extend: {
       colors: {

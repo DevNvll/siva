@@ -24,7 +24,7 @@ export default function Navbar({ search }) {
               <input
                 defaultValue={search}
                 name="username"
-                className="flex flex-grow transition-colors duration-300 ease-in-out focus:outline-0 border border-transparent focus:bg-white  rounded bg-purple-700 placeholder-purple-300 py-2 pr-4 pl-4 block m-4 md:m-0 appearance-none leading-normal ds-input outline-none focus:placeholder-purple-700"
+                className="flex flex-grow transition-colors duration-300 ease-in-out focus:outline-0 border border-transparent focus:bg-white rounded bg-purple-700 placeholder-purple-300 text-purple-300 focus:text-gray-900 py-2 pr-4 pl-4 block m-4 md:m-0 appearance-none leading-normal ds-input outline-none focus:placeholder-purple-700"
                 placeholder="Search..."
                 type="text"
               />

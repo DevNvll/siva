@@ -16,7 +16,10 @@ export default function Stories({ stories, username }) {
       >
         {stories.map((s, m) => {
           return (
-            <Link href={"/u/" + username + "/highlights/" + s.id.split(":")[1]}>
+            <Link
+              href={"/u/" + username + "/highlights/" + s.id.split(":")[1]}
+              key={m}
+            >
               <a>
                 <div
                   key={m}
