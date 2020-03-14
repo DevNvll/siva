@@ -1,7 +1,8 @@
 import { useState } from "react"
 import classNames from "classnames"
+import Link from "next/link"
 
-export default function Stories({ stories, profile }) {
+export default function Stories({ stories, username }) {
   const [storiesOpen, toggleStories] = useState(false)
   return (
     <div className="self-center">
@@ -15,16 +16,20 @@ export default function Stories({ stories, profile }) {
       >
         {stories.map((s, m) => {
           return (
-            <div
-              key={m}
-              className="flex flex-col content-center justify-center text-center cursor-pointer"
-            >
-              <img
-                src={s.cover_media.cropped_image_version.url}
-                className="self-center h-20 w-20 rounded-full shadow-lg bg-white border-4 border-solid border-white"
-              />
-              <p className="font-bold text-white text-sm pt-2">{s.title}</p>
-            </div>
+            <Link href={"/u/" + username + "/highlights/" + s.id.split(":")[1]}>
+              <a>
+                <div
+                  key={m}
+                  className="flex flex-col content-center justify-center text-center cursor-pointer"
+                >
+                  <img
+                    src={s.cover_media.cropped_image_version.url}
+                    className="self-center h-20 w-20 rounded-full shadow-lg bg-white border-4 border-solid border-white"
+                  />
+                  <p className="font-bold text-white text-sm pt-2">{s.title}</p>
+                </div>
+              </a>
+            </Link>
           )
         })}
       </div>

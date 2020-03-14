@@ -2,7 +2,7 @@ import classNames from "classnames"
 
 export default function UserInfo({ profile, hasStories }) {
   return (
-    <div className="flex flex-col md:flex-row text-white self-center p-4">
+    <div className="flex flex-col md:flex-row text-white self-center p-4 container">
       <img
         src={profile.profile_pic_url}
         className={classNames(
@@ -19,7 +19,7 @@ export default function UserInfo({ profile, hasStories }) {
             Favorite
           </button>
         </div>
-        <div className="grid grid-flow-col gap-4">
+        <div className="flex flex-row justify-between w-full md:w-1/2 my-2">
           <p>
             <b>{profile.media_count}</b> Posts
           </p>
