@@ -11,6 +11,6 @@ export default async function getProfile(username) {
 
   return {
     profile,
-    isPrivate: targetUser.is_private
+    isPrivate: profile.is_private
   }
 }
