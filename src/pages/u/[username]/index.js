@@ -64,7 +64,7 @@ export default ({
         <title>{profile.username} - Siva</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Navbar />
+      <Navbar search={profile.username} />
       <div className="h-screen flex flex-col w-full pt-16">
         <div className="flex flex-col bg-purple-900 pb-24">
           <UserInfo
