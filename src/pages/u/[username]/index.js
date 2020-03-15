@@ -175,24 +175,17 @@ export async function getServerSideProps(context) {
   const username = context.query.username
 
   try {
-    //console.time("profile")
     const { profile, isPrivate } = await getProfile(username)
-    //console.timeEnd("profile")
 
     if (isPrivate) {
       return { props: { profile, isPrivate: true } }
     }
-    //console.time("stories")
+
     const stories = await getStories(profile.pk)
-    //console.timeEnd("stories")
 
-    // console.time("posts")
     const { results: posts, nextMaxId: nextMaxId } = await getPosts(profile.pk)
-    //console.timeEnd("posts")
 
-    //console.time("highlights")
     const highlights = await getHighlights(profile.pk)
-    // console.timeEnd("highlights")
 
     return {
       props: { profile, posts, nextMaxId, stories, highlights }
