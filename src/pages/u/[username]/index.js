@@ -33,6 +33,7 @@ export default ({
 
   const isFavorite =
     !notFound && Boolean(favorites.find(p => p.pk === profile.pk))
+  const hasStories = Boolean(stories.length)
 
   useEffect(() => {
     if (!process.browser || notFound) return
@@ -68,7 +69,7 @@ export default ({
         <div className="flex flex-col bg-purple-900 pb-24">
           <UserInfo
             profile={profile}
-            hasStories={!isPrivate && Boolean(stories.length)}
+            hasStories={!isPrivate && hasStories}
             isFavorite={isFavorite}
             toggleFavorite={profile => toggleFavorite(profile)}
           />
@@ -95,17 +96,19 @@ export default ({
                     )}
                     href="#"
                   >
-                    Feed
+                    Posts
                   </a>
                 </li>
                 <li className="flex-1 mr-2">
                   <a
-                    onClick={() => setActiveTab(2)}
+                    onClick={() => (hasStories ? setActiveTab(2) : null)}
                     className={classNames(
-                      "text-center block border rounded py-2 px-4  ",
+                      "text-center block border rounded py-2 px-4",
                       activeTab === 2
                         ? "border-purple-500 bg-purple-500 hover:bg-purple-700 text-white"
-                        : "border-white hover:border-gray-200 text-purple-500 hover:bg-gray-200"
+                        : hasStories
+                        ? "border-white hover:border-gray-200 text-purple-500 hover:bg-gray-200"
+                        : "text-gray-500 border-white hover:bg-white cursor-not-allowed "
                     )}
                     href="#"
                   >
