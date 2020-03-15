@@ -94,7 +94,7 @@ export default function Index() {
               >
                 {favorites.map((f, i) => {
                   return (
-                    <Link href={"/u/" + f.username}>
+                    <Link href={"/u/" + f.username} prefetch>
                       <a>
                         <UserCard profile={f} key={i} />
                       </a>

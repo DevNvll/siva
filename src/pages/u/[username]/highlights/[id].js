@@ -1,9 +1,13 @@
 import getHighlights from "../../../../instagram/getHighlights"
 import StoriesList from "../../../../components/profile/StoriesList"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 export default function Highlights({ stories }) {
   const router = useRouter()
+  useEffect(() => {
+    router.prefetch("/u/" + router.query.username)
+  }, [])
 
   return (
     <div className="p-4 h-screen">
@@ -14,12 +18,12 @@ export default function Highlights({ stories }) {
         className="text-white font-bold text-5xl mb-10"
         href={"#"}
         onClick={() => {
-          router.back()
+          router.push("/u/" + router.query.username)
         }}
       >
         {"<"} Back{" "}
       </a>
-      <div className="m-4">
+      <div className="mx-auto">
         <StoriesList stories={stories} />
       </div>
     </div>

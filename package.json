@@ -24,6 +24,7 @@
     "preact": "^10.3.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-insta-stories": "^2.0.2",
     "tailwindcss": "^1.2.0"
   },
   "devDependencies": {
