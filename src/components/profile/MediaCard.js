@@ -13,17 +13,33 @@ export default function MediaCard({ media }) {
   const externalCurrentUrl = isVideo
     ? currentObject.video_versions[0].url
     : currentObject.image_versions2.candidates[0].url
-  const currentUrl = currentObject.image_versions2.candidates[0].url
+  const currentUrl = isVideo
+    ? currentObject.video_versions[0].url
+    : currentObject.image_versions2.candidates[0].url
 
   return (
     <div className="relative">
-      <a href={externalCurrentUrl} target="_blank" className="w-full relative">
-        <img
-          className="relative object-cover  w-full rounded"
-          style={{ height: "500px" }}
-          src={currentUrl}
-        />
-      </a>
+      <div className="w-full relative h-full flex  content-center justify-center cursor-pointer bg-black">
+        {(isVideo && (
+          <video
+            onLoadedData={props => {
+              props.currentTarget.currentTime = 0
+            }}
+            controls
+            autoPlay={false}
+            className="self-center bg-black rounded w-full"
+            style={{ height: "500px" }}
+          >
+            <source src={currentUrl} type="video/mp4"></source>
+          </video>
+        )) || (
+          <img
+            className="relative object-cover  w-full rounded"
+            style={{ height: "500px" }}
+            src={currentUrl}
+          />
+        )}
+      </div>
       {/* <div className="opacity-0 hover:opacity-100 absolute w-full h-full top-0 left-0 rounded flex flex-col">
         <p className="self-end text-white font-bold opacity-100 m-4">Test</p>
       </div> */}
@@ -83,9 +99,12 @@ export default function MediaCard({ media }) {
           {media.carousel_media.map((c, i) => (
             <div
               key={i}
-              className={classNames("bg-white rounded-full h-2 w-2", {
-                "h-4 w-4 -mt-1": i === index
-              })}
+              className={classNames(
+                "bg-white opacity-50 rounded-full h-2 w-2",
+                {
+                  "opacity-100": i === index
+                }
+              )}
             />
           ))}
         </div>

@@ -21,20 +21,13 @@ export default function StoriesList({ stories }) {
             return (
               <a key={p.id} href={p.video_versions[0].url} target="_blank">
                 <video
-                  autoPlay={false}
-                  onMouseOver={props => {
-                    props.currentTarget.play()
-                  }}
-                  onMouseOut={props => {
+                  onLoadedData={props => {
                     props.currentTarget.currentTime = 0
-                    props.currentTarget.pause()
                   }}
-                  onTouchMove={e => {
-                    e.currentTarget.play()
-                  }}
-                  muted
+                  controls
+                  autoPlay={false}
+                  className="self-center bg-black rounded"
                   className="w-full rounded"
-                  className="w-full"
                   style={{ height: "500px" }}
                 >
                   <source src={p.video_versions[0].url} type="video/mp4" />

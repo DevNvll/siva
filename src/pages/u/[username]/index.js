@@ -72,6 +72,9 @@ export default ({
             hasStories={!isPrivate && hasStories}
             isFavorite={isFavorite}
             toggleFavorite={profile => toggleFavorite(profile)}
+            goToStories={() => {
+              setActiveTab(2)
+            }}
           />
           {!isPrivate && profile.has_highlight_reels && (
             <Stories

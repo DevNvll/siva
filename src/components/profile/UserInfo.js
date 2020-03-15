@@ -4,15 +4,17 @@ export default function UserInfo({
   profile,
   hasStories,
   toggleFavorite,
-  isFavorite
+  isFavorite,
+  goToStories
 }) {
   return (
     <div className="flex flex-col md:flex-row text-white self-center p-4 container">
       <img
         src={profile.profile_pic_url}
+        onClick={goToStories}
         className={classNames(
           "rounded-full shadow-lg self-center md:mr-12 sm:m-12",
-          { "border-pink-800 border-solid border-4": hasStories }
+          { "border-pink-800 border-solid border-4 cursor-pointer": hasStories }
         )}
       />
       <div className="flex-auto flex-col w-1/2 h-auto pl-8 self-center w-full">
