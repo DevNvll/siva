@@ -29,6 +29,9 @@ export default function StoriesList({ stories }) {
                     props.currentTarget.currentTime = 0
                     props.currentTarget.pause()
                   }}
+                  onTouchMove={e => {
+                    e.currentTarget.play()
+                  }}
                   muted
                   className="w-full rounded"
                   className="w-full"

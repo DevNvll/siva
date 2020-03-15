@@ -1,9 +1,45 @@
-import React from "react"
+import React, { useRef } from "react"
 import { useRouter } from "next/router"
+import Link from "next/link"
 import Head from "next/head"
+import { useLocalStorage } from "../utils/storageService"
+import UserCard from "../components/UserCard"
+
+function scrollLeft(element, change, duration) {
+  var start = element.scrollLeft,
+    currentTime = 0,
+    increment = 20
+
+  console.log(start)
+
+  var animateScroll = function() {
+    currentTime += increment
+    var val = Math.easeInOutQuad(currentTime, start, change, duration)
+    element.scrollLeft = val
+    if (currentTime < duration) {
+      setTimeout(animateScroll, increment)
+    }
+  }
+  animateScroll()
+}
+
+//t = current time
+//b = start value
+//c = change in value
+//d = duration
+Math.easeInOutQuad = function(t, b, c, d) {
+  t /= d / 2
+  if (t < 1) return (c / 2) * t * t + b
+  t--
+  return (-c / 2) * (t * (t - 2) - 1) + b
+}
 
 export default function Index() {
   const router = useRouter()
+  const [favorites] = useLocalStorage("favorites", [])
+
+  const favComponent = useRef(null)
+
   function onSearch(e) {
     e.preventDefault()
     router.push("/search/" + e.target.username.value)
@@ -41,6 +77,42 @@ export default function Index() {
               </svg>
             </button>
           </form>
+          {Boolean(favorites.length) && (
+            <div className="flex flex-row w-full justify-center h-full">
+              <button
+                onClick={() => {
+                  scrollLeft(favComponent.current, -450, 300)
+                }}
+                className="w-8 bg-white rounded-full h-8 mr-4 -ml-12 z-10 self-center hidden md:block"
+              >
+                {"<"}
+              </button>
+              <div
+                className="grid grid-col-1 gap-4 md:grid-flow-col md:gap-4 overflow-x-hidden overflow-y-auto md:h-auto w-full my-4"
+                style={{ maxHeight: "350px" }}
+                ref={favComponent}
+              >
+                {favorites.map((f, i) => {
+                  return (
+                    <Link href={"/u/" + f.username}>
+                      <a>
+                        <UserCard profile={f} key={i} />
+                      </a>
+                    </Link>
+                  )
+                })}
+              </div>
+
+              <button
+                onClick={() => {
+                  scrollLeft(favComponent.current, 450, 300)
+                }}
+                className="w-8 bg-white rounded-full h-8 ml-4 -mr-12 self-center hidden md:block"
+              >
+                {">"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

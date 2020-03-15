@@ -3,6 +3,9 @@ module.exports = {
     backgroundColor: ["responsive", "hover", "focus", "active"]
   },
   theme: {
+    screens: {
+      "dark-mode": { raw: "(prefers-color-scheme:dark)" }
+    },
     extend: {
       colors: {
         purple: {

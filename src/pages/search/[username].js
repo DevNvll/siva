@@ -1,9 +1,9 @@
 import Head from "next/head"
 import Link from "next/link"
-import classNames from "classnames"
+
 import search from "../../instagram/search"
 import Navbar from "components/Navbar"
-import LockIcon from "../../components/icons/Lock"
+import UserCard from "../../components/UserCard"
 
 export default function Search({ results, username }) {
   return (
@@ -26,30 +26,7 @@ export default function Search({ results, username }) {
               return (
                 <Link href={"/u/" + r.username} key={i}>
                   <a>
-                    <div className="rounded bg-white shadow-md p-4 flex flex-row cursor-pointer hover:bg-purple-100">
-                      <img
-                        src={r.profile_pic_url}
-                        className={classNames("w-20 h-20 rounded-full mr-4", {
-                          "border-4 border-solid border-pink-700":
-                            r.latest_reel_media
-                        })}
-                      />
-
-                      <div>
-                        <p className="text-xl font-bold flex content-center">
-                          @{r.username}
-                          {r.is_private && (
-                            <small
-                              className="text-sm h-full self-center ml-2"
-                              alt="Private Profile"
-                            >
-                              <LockIcon className="w-4 h-4" />
-                            </small>
-                          )}
-                        </p>
-                        <p>{r.full_name}</p>
-                      </div>
-                    </div>
+                    <UserCard profile={r} />
                   </a>
                 </Link>
               )

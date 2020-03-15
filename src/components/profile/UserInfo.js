@@ -1,6 +1,11 @@
 import classNames from "classnames"
 
-export default function UserInfo({ profile, hasStories }) {
+export default function UserInfo({
+  profile,
+  hasStories,
+  toggleFavorite,
+  isFavorite
+}) {
   return (
     <div className="flex flex-col md:flex-row text-white self-center p-4 container">
       <img
@@ -15,8 +20,11 @@ export default function UserInfo({ profile, hasStories }) {
           <h1 className="text-2xl font-bold text-white pr-4">
             {profile.username}
           </h1>
-          <button className="rounded bg-purple-600 hover:bg-purple-700 active:bg-purple-900 p-2 font-bold shadow-md focus:outline-none">
-            Favorite
+          <button
+            className="rounded bg-purple-600 hover:bg-purple-700 active:bg-purple-900 p-2 font-bold shadow-md focus:outline-none"
+            onClick={() => toggleFavorite(profile)}
+          >
+            {isFavorite ? "Unfavorite" : "Favorite"}
           </button>
         </div>
         <div className="flex flex-row justify-between w-full md:w-1/2 my-2">
