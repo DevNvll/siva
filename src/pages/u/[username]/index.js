@@ -33,7 +33,7 @@ export default ({
 
   const isFavorite =
     !notFound && Boolean(favorites.find(p => p.pk === profile.pk))
-  const hasStories = Boolean(stories.length)
+  const hasStories = Boolean(!isPrivate && stories.length)
 
   useEffect(() => {
     if (!process.browser || notFound) return
