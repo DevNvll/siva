@@ -5,8 +5,9 @@ export default async function getProfile(username) {
     throw new Error("No username provided")
   }
   const ig = await getIgClient()
-  const targetUser = await ig.user.searchExact(username)
-  const profile = await ig.user.info(targetUser.pk)
+
+  const targetUser = await ig.user.getIdByUsername(username)
+  const profile = await ig.user.info(targetUser)
 
   return {
     profile,

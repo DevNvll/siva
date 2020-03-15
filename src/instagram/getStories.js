@@ -1,16 +1,14 @@
 import getIgClient from "./igClient"
 
-export default async function getStories(username) {
-  if (!username) {
+export default async function getStories(id) {
+  if (!id) {
     throw new Error("No username provided")
   }
 
   const ig = await getIgClient()
 
-  const targetUser = await ig.user.searchExact(username)
-
   const reelsFeed = ig.feed.reelsMedia({
-    userIds: [targetUser.pk]
+    userIds: [id]
   })
 
   const storyItems = await reelsFeed.items()

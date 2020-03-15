@@ -11,16 +11,14 @@ async function getPosts(ig, user, nextMaxId) {
   return { results, nextMaxId: feed.moreAvailable ? next : null }
 }
 
-export default async function getFeed(username, nextMaxId) {
-  if (!username) {
+export default async function getFeed(id, nextMaxId) {
+  if (!id) {
     throw new Error("No username provided")
   }
 
   const ig = await getIgClient()
 
-  const targetUser = await ig.user.searchExact(username)
-
-  const posts = await getPosts(ig, targetUser.pk, nextMaxId)
+  const posts = await getPosts(ig, id, nextMaxId)
 
   return posts
 }
