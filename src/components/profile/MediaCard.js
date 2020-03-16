@@ -1,5 +1,8 @@
 import { useState } from "react"
 import classNames from "classnames"
+import saveFile from "../../utils/saveFile"
+
+import Button from "components/Button"
 
 export default function MediaCard({ media }) {
   const [index, setIndex] = useState(0)
@@ -37,9 +40,21 @@ export default function MediaCard({ media }) {
           />
         )}
       </div>
-      {/* <div className="opacity-0 hover:opacity-100 absolute w-full h-full top-0 left-0 rounded flex flex-col">
-        <p className="self-end text-white font-bold opacity-100 m-4">Test</p>
-      </div> */}
+      <div className=" absolute w-full h-auto  top-0 left-0 rounded flex flex-col">
+        <div className="self-end p-4">
+          <a href={externalCurrentUrl} target="_blank">
+            <Button className="mr-2">Open</Button>
+          </a>
+
+          <Button
+            onClick={() => {
+              saveFile(externalCurrentUrl)
+            }}
+          >
+            Download
+          </Button>
+        </div>
+      </div>
       {isCarousel && index !== 0 && (
         <div
           onClick={() => setIndex(index - 1)}

@@ -1,4 +1,5 @@
 import classNames from "classnames"
+import Button from "components/Button"
 
 export default function UserInfo({
   profile,
@@ -22,12 +23,9 @@ export default function UserInfo({
           <h1 className="text-2xl font-bold text-white pr-4">
             {profile.username}
           </h1>
-          <button
-            className="rounded bg-purple-600 hover:bg-purple-700 active:bg-purple-900 p-2 font-bold shadow-md focus:outline-none"
-            onClick={() => toggleFavorite(profile)}
-          >
+          <Button onClick={() => toggleFavorite(profile)}>
             {isFavorite ? "Unfavorite" : "Favorite"}
-          </button>
+          </Button>
         </div>
         <div className="flex flex-row justify-between w-full md:w-1/2 my-2">
           <p>
