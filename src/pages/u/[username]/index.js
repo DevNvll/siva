@@ -102,7 +102,7 @@ export default ({
                     Posts
                   </a>
                 </li>
-                <li className="flex-1 mr-2">
+                <li className="flex-1">
                   <a
                     onClick={() => (hasStories ? setActiveTab(2) : null)}
                     className={classNames(
@@ -118,20 +118,6 @@ export default ({
                     Stories
                   </a>
                 </li>
-                <li className="text-center flex-1">
-                  <a
-                    onClick={() => setActiveTab(3)}
-                    className={classNames(
-                      "text-center block border rounded py-2 px-4  ",
-                      activeTab === 3
-                        ? "border-purple-500 bg-purple-500 hover:bg-purple-700 text-white"
-                        : "border-white hover:border-gray-200 text-purple-500 hover:bg-gray-200"
-                    )}
-                    href="#"
-                  >
-                    Raw Data
-                  </a>
-                </li>
               </ul>
               {(() => {
                 switch (activeTab) {
@@ -145,17 +131,6 @@ export default ({
                     )
                   case 2:
                     return <StoriesList stories={stories} />
-                  case 3:
-                    return (
-                      <div>
-                        <textarea
-                          className="w-full"
-                          style={{ height: "500px" }}
-                        >
-                          {JSON.stringify(profile, null, 2)}
-                        </textarea>
-                      </div>
-                    )
                 }
               })()}
             </>
