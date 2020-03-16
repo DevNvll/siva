@@ -1,6 +1,7 @@
 const path = require("path")
+const withImages = require("next-images")
 
-module.exports = {
+module.exports = withImages({
   webpack(config, options) {
     config.resolve.alias["components"] = path.join(
       __dirname,
@@ -9,4 +10,4 @@ module.exports = {
     config.resolve.alias["session"] = path.join(__dirname, "session")
     return config
   }
-}
+})

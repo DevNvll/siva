@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import classNames from "classnames"
-import Play from "../icons/Play"
 
 export default function MediaCard({ media }) {
   const [index, setIndex] = useState(0)
@@ -22,13 +21,11 @@ export default function MediaCard({ media }) {
       <div className="w-full relative h-full flex  content-center justify-center cursor-pointer bg-black">
         {(isVideo && (
           <video
-            onLoadedData={props => {
-              props.currentTarget.currentTime = 0
-            }}
             controls
             autoPlay={false}
             className="self-center bg-black rounded w-full"
             style={{ height: "500px" }}
+            poster={currentObject.image_versions2.candidates[0].url}
           >
             <source src={currentUrl} type="video/mp4"></source>
           </video>
@@ -83,14 +80,14 @@ export default function MediaCard({ media }) {
           </svg>
         </div>
       )}
-      {isVideo && (
+      {/* {isVideo && (
         <div
           className="absolute text-white"
           style={{ top: "50%", left: "50%" }}
         >
           <Play className="text-white shadow-lg" />
         </div>
-      )}
+      )} */}
       {isCarousel && (
         <div
           className={"grid grid-flow-col gap-2 bottom-0 absolute"}
