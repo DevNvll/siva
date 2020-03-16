@@ -2,11 +2,7 @@ import { useState } from "react"
 import fetch from "isomorphic-unfetch"
 import MediaCard from "./MediaCard"
 
-export default function FeedList({
-  initialPosts,
-  nextMaxId: nextId,
-  username
-}) {
+export default function FeedList({ initialPosts, nextMaxId: nextId, id }) {
   const [loading, setLoading] = useState(false)
   const [feed, setFeed] = useState(initialPosts)
   const [nextMaxId, setNextMaxId] = useState(nextId)
@@ -14,7 +10,7 @@ export default function FeedList({
   async function loadMore() {
     setLoading(true)
     const feedRes = await fetch(
-      "/api/feed?username=" + username + "&nextMaxId=" + nextMaxId
+      "/api/feed?id=" + id + "&nextMaxId=" + nextMaxId
     )
     const newPosts = await feedRes.json()
     setNextMaxId(newPosts.posts.nextMaxId)

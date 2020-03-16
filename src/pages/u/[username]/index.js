@@ -140,7 +140,7 @@ export default ({
                       <FeedList
                         initialPosts={posts}
                         nextMaxId={nextMaxId}
-                        username={profile.username}
+                        id={profile.pk}
                       />
                     )
                   case 2:

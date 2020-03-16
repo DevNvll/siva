@@ -1,16 +1,16 @@
 import getFeed from "../../instagram/getFeed"
 
 export default async (req, res) => {
-  const username = req.query.username
+  const id = req.query.id
 
-  if (!username) {
+  if (!id) {
     res.status(400).json({
-      code: "no_username"
+      code: "no_id"
     })
     return
   }
 
-  const posts = await getFeed(username, req.query.nextMaxId)
+  const posts = await getFeed(id, req.query.nextMaxId)
 
   res.json({
     posts
