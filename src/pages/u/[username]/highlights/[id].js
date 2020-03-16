@@ -19,7 +19,7 @@ export default function Highlights({ stories }) {
         <style>{`body {
         background-color: #240c3d;
       }`}</style>
-        <Link href={"/u/" + router.query.username} prefetch>
+        <Link href={"/u/" + router.query.username}>
           <a className="text-white font-bold text-5xl mb-10">{"<"} Back </a>
         </Link>
         <div className="mx-auto mb-4">

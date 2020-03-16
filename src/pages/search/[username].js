@@ -24,7 +24,7 @@ export default function Search({ results, username }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {results.map((r, i) => {
               return (
-                <Link href={"/u/" + r.username} key={i} prefetch>
+                <Link href={"/u/" + r.username} key={i}>
                   <a>
                     <UserCard profile={r} />
                   </a>
