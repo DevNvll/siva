@@ -15,12 +15,12 @@ export default function Highlights({ stories }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar search={router.query.username} />
-      <div className="p-4 h-screen pt-16">
+      <div className="h-screen p-4 pt-16">
         <style>{`body {
         background-color: #240c3d;
       }`}</style>
-        <Link href={"/u/" + router.query.username}>
-          <a className="text-white font-bold text-5xl mb-10">{"<"} Back </a>
+        <Link href={"/u/" + router.query.username} shallow>
+          <a className="mb-10 text-5xl font-bold text-white">{"<"} Back </a>
         </Link>
         <div className="mx-auto mb-4">
           <StoriesList stories={stories} />

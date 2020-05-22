@@ -6,10 +6,10 @@ export default function UserInfo({
   hasStories,
   toggleFavorite,
   isFavorite,
-  goToStories
+  goToStories,
 }) {
   return (
-    <div className="flex flex-col md:flex-row text-white self-center p-4 container">
+    <div className="container flex flex-col self-center p-4 text-white md:flex-row">
       <img
         src={profile.profile_pic_url}
         onClick={goToStories}
@@ -18,16 +18,16 @@ export default function UserInfo({
           { "border-pink-800 border-solid border-4 cursor-pointer": hasStories }
         )}
       />
-      <div className="flex-auto flex-col w-1/2 h-auto pl-8 self-center w-full">
-        <div className="flex flex-row  self-center w-full justify-center md:justify-start">
-          <h1 className="text-2xl font-bold text-white pr-4">
+      <div className="flex-col self-center flex-auto w-1/2 w-full h-auto mt-4 md:mt-0 md:pl-8">
+        <div className="flex flex-row self-center justify-center w-full md:justify-start">
+          <h1 className="pr-4 text-2xl font-bold text-white">
             {profile.username}
           </h1>
           <Button onClick={() => toggleFavorite(profile)}>
             {isFavorite ? "Unfavorite" : "Favorite"}
           </Button>
         </div>
-        <div className="flex flex-row justify-between w-full md:w-1/2 my-2">
+        <div className="flex flex-row justify-between w-full my-2 md:w-1/2">
           <p>
             <b>{profile.media_count}</b> Posts
           </p>
@@ -38,7 +38,7 @@ export default function UserInfo({
             <b>{profile.following_count}</b> Following
           </p>
         </div>
-        <p className="text-lg text-white pr-4">{profile.full_name}</p>
+        <p className="pr-4 text-lg text-white">{profile.full_name}</p>
         <div className="flex-wrap">{profile.biography}</div>
       </div>
     </div>

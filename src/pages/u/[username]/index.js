@@ -26,21 +26,22 @@ export default ({
   nextMaxId,
   isPrivate,
   notFound,
-  highlights
+  highlights,
 }) => {
   const [activeTab, setActiveTab] = useState(1)
   const [favorites, setFavorites] = useLocalStorage("favorites", [])
 
   const isFavorite =
-    !notFound && Boolean(favorites.find(p => p.pk === profile.pk))
+    !notFound && Boolean(favorites.find((p) => p.pk === profile.pk))
   const hasStories = Boolean(!isPrivate && stories.length)
 
   useEffect(() => {
     if (!process.browser || notFound) return
     if (isFavorite) {
       // renew profile info in favorites
-      const newFavorites = immer(favorites, draft => {
-        draft[draft.findIndex(f => f.pk === profile.pk)] = profile
+      const newFavorites = immer(favorites, (draft) => {
+        draft[draft.findIndex((f) => f.pk === profile.pk)] = profile
+        console.log(draft)
       })
       setFavorites(newFavorites)
     }
@@ -49,7 +50,7 @@ export default ({
   function toggleFavorite(newFavorite) {
     if (process.browser) {
       if (isFavorite) {
-        setFavorites(favorites.filter(p => p.pk !== profile.pk))
+        setFavorites(favorites.filter((p) => p.pk !== profile.pk))
       } else {
         setFavorites([newFavorite, ...favorites])
       }
@@ -65,13 +66,13 @@ export default ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar search={profile.username} />
-      <div className="h-screen flex flex-col w-full pt-16">
-        <div className="flex flex-col bg-purple-900 pb-24">
+      <div className="flex flex-col w-full h-screen pt-16">
+        <div className="flex flex-col pb-24 bg-purple-900">
           <UserInfo
             profile={profile}
             hasStories={!isPrivate && hasStories}
             isFavorite={isFavorite}
-            toggleFavorite={profile => toggleFavorite(profile)}
+            toggleFavorite={(profile) => toggleFavorite(profile)}
             goToStories={() => {
               setActiveTab(2)
             }}
@@ -84,7 +85,7 @@ export default ({
             />
           )}
         </div>
-        <div className="bg-white rounded shadow-xl -mt-16 md:p-6 p-2 md:mx-12 mb-4">
+        <div className="p-2 mb-4 -mt-16 bg-white rounded shadow-xl md:p-6 md:mx-12">
           {!isPrivate ? (
             <>
               <ul className="flex pb-2 md:pb-4">
@@ -163,7 +164,7 @@ export async function getServerSideProps(context) {
     const highlights = await getHighlights(profile.pk)
 
     return {
-      props: { profile, posts, nextMaxId, stories, highlights }
+      props: { profile, posts, nextMaxId, stories, highlights },
     }
   } catch (err) {
     return { props: { notFound: true, username: context.query.username } }
