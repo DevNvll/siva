@@ -1,14 +1,9 @@
 const { IgApiClient } = require("instagram-private-api")
 const inquirer = require("inquirer")
 const _ = require("lodash")
-const { existsSync, readFile, writeFile, accessSync } = require("fs")
 
 async function saveSession(data) {
-  const checkpointStatePath = `./session/session.json`
-
-  writeFile(checkpointStatePath, JSON.stringify(data), "utf8", err => {
-    if (err) console.log(err)
-  })
+  console.log(JSON.stringify(data))
 }
 
 async function login(ig) {
@@ -21,24 +16,24 @@ async function login(ig) {
     {
       type: "input",
       name: "username",
-      message: "Username"
-    }
+      message: "Username",
+    },
   ])
   const { password } = await inquirer.prompt([
     {
       type: "password",
       name: "password",
-      message: "Password"
-    }
+      message: "Password",
+    },
   ])
-  await ig.account.login(username, password).catch(async err => {
+  await ig.account.login(username, password).catch(async (err) => {
     await ig.challenge.auto(true)
     const { code } = await inquirer.prompt([
       {
         type: "input",
         name: "code",
-        message: "Enter code"
-      }
+        message: "Enter code",
+      },
     ])
     await ig.challenge.sendSecurityCode(code)
   })
@@ -46,10 +41,13 @@ async function login(ig) {
 
 const ig = new IgApiClient()
 ig.state.proxyUrl = process.env.IG_PROXY
-;(async function() {
+
+async function main() {
   const ig = new IgApiClient()
   ig.state.generateDevice("delta")
   ig.state.proxyUrl = process.env.IG_PROXY
 
   await login(ig)
-})()
+}
+
+main()
