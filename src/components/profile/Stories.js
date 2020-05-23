@@ -4,7 +4,9 @@ import Link from "next/link"
 import Scroll from "../Scroll"
 
 export default function Stories({ stories, username, openStories }) {
+  const [loadingStory, setLoadingStory] = useState(null)
   async function onOpenStories(id) {
+    setLoadingStory(id)
     const res = await fetch(
       "/api/highlights?username=" + username + "&id=" + id
     )
@@ -17,6 +19,7 @@ export default function Stories({ stories, username, openStories }) {
           : { url: p.image_versions2.candidates[0].url }
       })
     )
+    setLoadingStory(null)
   }
 
   return (
@@ -27,13 +30,19 @@ export default function Stories({ stories, username, openStories }) {
             return (
               <div key={m}>
                 <button
+                  className="focus:outline-none"
                   onClick={() => {
                     onOpenStories(s.id)
                   }}
                 >
                   <div
                     key={m}
-                    className="flex flex-col content-center justify-center w-20 text-center cursor-pointer "
+                    className={classNames(
+                      "flex flex-col content-center justify-center w-20 text-center cursor-pointer ",
+                      {
+                        "opacity-50": loadingStory === s.id,
+                      }
+                    )}
                     style={{ height: "fit-content" }}
                   >
                     <img
