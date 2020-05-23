@@ -6,7 +6,7 @@ export function ViewComponent({ data, currentIndex }) {
         <img
           src={data.url}
           className="self-center "
-          style={{ height: "100vh" }}
+          style={{ height: "auto", maxHeight: "100vh" }}
         />
       ) : (
         <video controls className="self-center" style={{ height: "90vh" }}>
