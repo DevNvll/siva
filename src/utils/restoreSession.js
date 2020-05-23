@@ -1,3 +1,3 @@
 export default function restoreSession() {
-  return JSON.parse(process.env.SESSION_FILE)
+  return JSON.parse(process.env.SESSION_STRING)
 }
