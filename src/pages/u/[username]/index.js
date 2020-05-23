@@ -38,7 +38,7 @@ export default function Index({
 
   const isFavorite =
     !notFound && Boolean(favorites.find((p) => p.pk === profile.pk))
-  const hasStories = Boolean(!isPrivate && stories.length)
+  const hasStories = false
 
   useEffect(() => {
     if (!process.browser || notFound) return
@@ -79,6 +79,22 @@ export default function Index({
     setModalOpened(true)
   }
 
+  async function openStories() {
+    const res = await fetch("/api/stories?username=" + profile.pk)
+    const data = await res.json()
+    setOpenedImage(
+      data.map((m) => {
+        const isVideo = m.media_type === 2
+        return {
+          url: isVideo
+            ? m.video_versions[0].url
+            : m.image_versions2.candidates[0].url,
+          video: isVideo,
+        }
+      })
+    )
+  }
+
   return !notFound ? (
     <div>
       <ModalGateway>
@@ -107,17 +123,17 @@ export default function Index({
             hasStories={!isPrivate && hasStories}
             isFavorite={isFavorite}
             toggleFavorite={(profile) => toggleFavorite(profile)}
-            goToStories={() => {
-              setActiveTab(2)
-            }}
+            goToStories={openStories}
           />
           {!isPrivate && profile.has_highlight_reels && (
-            <Stories
-              isPrivate={isPrivate}
-              stories={highlights}
-              username={profile.username}
-              openStories={setOpenedImage}
-            />
+            <div className="self-center w-full md:w-2/4">
+              <Stories
+                isPrivate={isPrivate}
+                stories={highlights}
+                username={profile.username}
+                openStories={setOpenedImage}
+              />
+            </div>
           )}
         </div>
         <div className="p-2 mb-4 -mt-16 bg-white rounded shadow-xl md:p-6 md:mx-12">
@@ -198,14 +214,14 @@ export async function getServerSideProps(context) {
       return { props: { profile, isPrivate: true } }
     }
 
-    const stories = await getStories(profile.pk)
-
     const { results: posts, nextMaxId: nextMaxId } = await getPosts(profile.pk)
+
+    console.log(profile)
 
     const highlights = await getHighlights(profile.pk)
 
     return {
-      props: { profile, posts, nextMaxId, stories, highlights },
+      props: { profile, posts, nextMaxId, highlights },
     }
   } catch (err) {
     return { props: { notFound: true, username: context.query.username } }

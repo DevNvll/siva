@@ -9,7 +9,6 @@ export default function Stories({ stories, username, openStories }) {
       "/api/highlights?username=" + username + "&id=" + id
     )
     const data = await res.json()
-    console.log(data)
     openStories(
       data.map((p) => {
         const isVideo = p.media_type === 2
@@ -21,8 +20,8 @@ export default function Stories({ stories, username, openStories }) {
   }
 
   return (
-    <div className="flex self-center justify-center w-full mx-4">
-      <Scroll className="w-full mx-8">
+    <Scroll>
+      <div className="inline-flex space-x-4 ">
         {stories.map((s, m) => {
           return (
             <div key={m}>
@@ -46,7 +45,7 @@ export default function Stories({ stories, username, openStories }) {
             </div>
           )
         })}
-      </Scroll>
-    </div>
+      </div>
+    </Scroll>
   )
 }

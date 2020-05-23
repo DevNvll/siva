@@ -5,6 +5,7 @@ import Head from "next/head"
 import { useLocalStorage } from "../utils/storageService"
 import UserCard from "../components/UserCard"
 import Scroll from "../components/Scroll"
+import { isMobile } from "react-device-detect"
 
 function scrollLeft(element, change, duration) {
   var start = element.scrollLeft,
@@ -38,8 +39,6 @@ Math.easeInOutQuad = function (t, b, c, d) {
 export default function Index() {
   const router = useRouter()
   const [favorites] = useLocalStorage("favorites", [])
-
-  const favComponent = useRef(null)
 
   function onSearch(e) {
     e.preventDefault()
@@ -78,20 +77,37 @@ export default function Index() {
               </svg>
             </button>
           </form>
-          {Boolean(favorites.length) && (
-            <Scroll className="mt-4">
+          {Boolean(favorites.length) && !isMobile ? (
+            <div className="mt-4">
+              <Scroll>
+                <div className="inline-flex space-x-4">
+                  {favorites.map((f, i) => {
+                    return (
+                      <Link href={"/u/" + f.username} key={f.username}>
+                        <a className="w-full">
+                          <UserCard profile={f} key={i} />
+                        </a>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </Scroll>
+            </div>
+          ) : (
+            <div
+              className="flex flex-col w-full space-y-4 overflow-y-auto"
+              style={{ height: "400px" }}
+            >
               {favorites.map((f, i) => {
                 return (
-                  <div>
-                    <Link href={"/u/" + f.username} key={f.username}>
-                      <a className="w-full">
-                        <UserCard profile={f} key={i} />
-                      </a>
-                    </Link>
-                  </div>
+                  <Link href={"/u/" + f.username} key={f.username}>
+                    <a className="w-full">
+                      <UserCard profile={f} key={i} />
+                    </a>
+                  </Link>
                 )
               })}
-            </Scroll>
+            </div>
           )}
         </div>
       </div>

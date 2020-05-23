@@ -1,0 +1,26 @@
+{
+  "name": "Siva",
+  "short_name": "SIVA",
+  "icons": [
+    {
+      "src": "/icons/icon-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-chrome-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#3C1466",
+  "background_color": "#3C1466",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
