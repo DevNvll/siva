@@ -1,5 +1,4 @@
 import { useRef } from "react"
-import ScrollMenu from "react-horizontal-scrolling-menu"
 
 function ChevronRight({ className }) {
   return (

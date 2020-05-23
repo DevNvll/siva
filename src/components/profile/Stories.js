@@ -20,32 +20,36 @@ export default function Stories({ stories, username, openStories }) {
   }
 
   return (
-    <Scroll>
-      <div className="inline-flex space-x-4 ">
-        {stories.map((s, m) => {
-          return (
-            <div key={m}>
-              <button
-                onClick={() => {
-                  onOpenStories(s.id)
-                }}
-              >
-                <div
-                  key={m}
-                  className="flex flex-col content-center justify-center w-20 text-center cursor-pointer "
-                  style={{ height: "fit-content" }}
+    <div className="flex items-center self-center justify-center w-full md:w-3/5">
+      <Scroll className="self-center">
+        <div className="inline-flex space-x-4 ">
+          {stories.map((s, m) => {
+            return (
+              <div key={m}>
+                <button
+                  onClick={() => {
+                    onOpenStories(s.id)
+                  }}
                 >
-                  <img
-                    src={s.cover_media.cropped_image_version.url}
-                    className="self-center w-20 h-20 bg-white border-4 border-white border-solid rounded-full shadow-lg"
-                  />
-                  <p className="pt-2 text-sm font-bold text-white">{s.title}</p>
-                </div>
-              </button>
-            </div>
-          )
-        })}
-      </div>
-    </Scroll>
+                  <div
+                    key={m}
+                    className="flex flex-col content-center justify-center w-20 text-center cursor-pointer "
+                    style={{ height: "fit-content" }}
+                  >
+                    <img
+                      src={s.cover_media.cropped_image_version.url}
+                      className="self-center w-20 h-20 bg-white border-4 border-white border-solid rounded-full shadow-lg"
+                    />
+                    <p className="pt-2 text-sm font-bold text-white">
+                      {s.title}
+                    </p>
+                  </div>
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </Scroll>
+    </div>
   )
 }

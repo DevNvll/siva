@@ -126,14 +126,12 @@ export default function Index({
             goToStories={openStories}
           />
           {!isPrivate && profile.has_highlight_reels && (
-            <div className="self-center w-full md:w-2/4">
-              <Stories
-                isPrivate={isPrivate}
-                stories={highlights}
-                username={profile.username}
-                openStories={setOpenedImage}
-              />
-            </div>
+            <Stories
+              isPrivate={isPrivate}
+              stories={highlights}
+              username={profile.username}
+              openStories={setOpenedImage}
+            />
           )}
         </div>
         <div className="p-2 mb-4 -mt-16 bg-white rounded shadow-xl md:p-6 md:mx-12">
