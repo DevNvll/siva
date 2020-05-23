@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Head from "next/head"
 import classNames from "classnames"
 import immer from "immer"
+import Carousel, { Modal, ModalGateway } from "react-images"
 
 import UserInfo from "components/profile/UserInfo"
 import Stories from "components/profile/Stories"
@@ -17,8 +18,10 @@ import getPosts from "../../../instagram/getFeed"
 import getStories from "../../../instagram/getStories"
 import getHighlights from "../../../instagram/getHighlights"
 import { useLocalStorage } from "../../../utils/storageService"
+import { FooterComponent } from "../../../components/Modal/FooterComponent"
+import { ViewComponent } from "../../../components/Modal/ViewComponent"
 
-export default ({
+export default function Index({
   username,
   profile,
   posts,
@@ -27,9 +30,11 @@ export default ({
   isPrivate,
   notFound,
   highlights,
-}) => {
+}) {
   const [activeTab, setActiveTab] = useState(1)
   const [favorites, setFavorites] = useLocalStorage("favorites", [])
+  const [carouselImages, setCaroulselImages] = useState(null)
+  const [modalOpened, setModalOpened] = useState(false)
 
   const isFavorite =
     !notFound && Boolean(favorites.find((p) => p.pk === profile.pk))
@@ -59,8 +64,37 @@ export default ({
     }
   }
 
+  function setOpenedImage(urls, video) {
+    if (!urls) {
+      setModalOpened(false)
+      return
+    }
+    const views = urls.map((u) => ({
+      url: u.url,
+      video: u.video,
+      poster: !u.video ? u.url : "",
+    }))
+    console.log(views)
+    setCaroulselImages(views)
+    setModalOpened(true)
+  }
+
   return !notFound ? (
     <div>
+      <ModalGateway>
+        {modalOpened ? (
+          <Modal
+            onClose={() => {
+              setOpenedImage(null)
+            }}
+          >
+            <Carousel
+              views={carouselImages}
+              components={{ View: ViewComponent, Footer: FooterComponent }}
+            />
+          </Modal>
+        ) : null}
+      </ModalGateway>
       <Head>
         <title>{profile.username} - Siva</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -82,6 +116,7 @@ export default ({
               isPrivate={isPrivate}
               stories={highlights}
               username={profile.username}
+              openStories={setOpenedImage}
             />
           )}
         </div>
@@ -125,13 +160,19 @@ export default ({
                   case 1:
                     return (
                       <FeedList
+                        setOpenedImage={setOpenedImage}
                         initialPosts={posts}
                         nextMaxId={nextMaxId}
                         id={profile.pk}
                       />
                     )
                   case 2:
-                    return <StoriesList stories={stories} />
+                    return (
+                      <StoriesList
+                        stories={stories}
+                        setOpenedImage={setOpenedImage}
+                      />
+                    )
                 }
               })()}
             </>

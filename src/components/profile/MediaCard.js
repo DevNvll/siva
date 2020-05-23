@@ -4,7 +4,7 @@ import saveFile from "../../utils/saveFile"
 
 import Button from "components/Button"
 
-export default function MediaCard({ media }) {
+export default function MediaCard({ media, setOpenedImage }) {
   const [index, setIndex] = useState(0)
 
   const isCarousel = media.media_type === 8
@@ -21,12 +21,12 @@ export default function MediaCard({ media }) {
 
   return (
     <div className="relative">
-      <div className="w-full relative h-full flex  content-center justify-center cursor-pointer bg-black">
+      <div className="relative flex content-center justify-center w-full h-full bg-black cursor-pointer">
         {(isVideo && (
           <video
             controls
             autoPlay={false}
-            className="self-center bg-black rounded w-full"
+            className="self-center w-full bg-black rounded"
             style={{ height: "500px" }}
             poster={currentObject.image_versions2.candidates[0].url}
           >
@@ -34,13 +34,16 @@ export default function MediaCard({ media }) {
           </video>
         )) || (
           <img
-            className="relative object-cover  w-full rounded"
+            className="relative object-cover w-full rounded"
             style={{ height: "500px" }}
             src={currentUrl}
+            onClick={() => {
+              setOpenedImage([{ url: externalCurrentUrl }])
+            }}
           />
         )}
       </div>
-      <div className=" absolute w-full h-auto  top-0 left-0 rounded flex flex-col">
+      <div className="absolute top-0 left-0 flex flex-col w-full h-auto rounded ">
         <div className="self-end p-4">
           <a href={externalCurrentUrl} target="_blank">
             <Button className="mr-2">Open</Button>
@@ -58,13 +61,13 @@ export default function MediaCard({ media }) {
       {isCarousel && index !== 0 && (
         <div
           onClick={() => setIndex(index - 1)}
-          className="absolute left-0 cursor-pointer h-20 w-20 flex flex-col justify-center content-center"
+          className="absolute left-0 flex flex-col content-center justify-center w-20 h-20 cursor-pointer"
           style={{ top: "50%", transform: "translate(0%, -50%)" }}
         >
           <svg
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="absolute w-45 self-center text-gray-400 bg-white rounded-full h-8 cursor-pointer text-center"
+            className="absolute self-center h-8 text-center text-gray-400 bg-white rounded-full cursor-pointer w-45"
           >
             <path
               fillRule="evenodd"
@@ -77,13 +80,13 @@ export default function MediaCard({ media }) {
       {isCarousel && index !== media.carousel_media.length - 1 && (
         <div
           onClick={() => setIndex(index + 1)}
-          className="absolute right-0 cursor-pointer h-20 w-20 flex flex-col justify-center content-center"
+          className="absolute right-0 flex flex-col content-center justify-center w-20 h-20 cursor-pointer"
           style={{ top: "50%", transform: "translate(0%, -50%)" }}
         >
           <svg
             viewBox="0 0 20 20"
             fill="white"
-            className="absolute w-45 self-center text-gray-400 bg-white rounded-full h-8 cursor-pointer text-center"
+            className="absolute self-center h-8 text-center text-gray-400 bg-white rounded-full cursor-pointer w-45"
           >
             <svg viewBox="0 0 20 20" fill="currentColor">
               <path
@@ -114,7 +117,7 @@ export default function MediaCard({ media }) {
               className={classNames(
                 "bg-white opacity-50 rounded-full h-2 w-2",
                 {
-                  "opacity-100": i === index
+                  "opacity-100": i === index,
                 }
               )}
             />

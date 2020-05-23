@@ -79,7 +79,7 @@ export default function Index() {
             </button>
           </form>
           {Boolean(favorites.length) && (
-            <Scroll>
+            <Scroll className="mt-4">
               {favorites.map((f, i) => {
                 return (
                   <div>

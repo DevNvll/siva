@@ -2,7 +2,12 @@ import { useState } from "react"
 import fetch from "isomorphic-unfetch"
 import MediaCard from "./MediaCard"
 
-export default function FeedList({ initialPosts, nextMaxId: nextId, id }) {
+export default function FeedList({
+  initialPosts,
+  nextMaxId: nextId,
+  id,
+  setOpenedImage,
+}) {
   const [loading, setLoading] = useState(false)
   const [feed, setFeed] = useState(initialPosts)
   const [nextMaxId, setNextMaxId] = useState(nextId)
@@ -14,28 +19,28 @@ export default function FeedList({ initialPosts, nextMaxId: nextId, id }) {
     )
     const newPosts = await feedRes.json()
     setNextMaxId(newPosts.posts.nextMaxId)
-    setFeed(p => [...p, ...newPosts.posts.results])
+    setFeed((p) => [...p, ...newPosts.posts.results])
     setLoading(false)
   }
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {feed.map((p, i) => {
-          return <MediaCard media={p} key={i} />
+          return <MediaCard media={p} key={i} setOpenedImage={setOpenedImage} />
         })}
       </div>
       {(!loading && nextMaxId && (
         <button
-          className="disabled:opacity-75 w-full p-2 rounded bg-purple-800 text-white font-bold mt-4 "
+          className="w-full p-2 mt-4 font-bold text-white bg-purple-800 rounded disabled:opacity-75 "
           onClick={loadMore}
         >
           Load More...
         </button>
       )) ||
         (nextMaxId && (
-          <div className="w-full text-center pt-4 cursor-pointer">
-            <p className="text-lg font-bold mx-auto text-purple-400">
+          <div className="w-full pt-4 text-center cursor-pointer">
+            <p className="mx-auto text-lg font-bold text-purple-400">
               Loading...
             </p>
           </div>

@@ -1,11 +1,4 @@
-import { useRef, useLayoutEffect, useState } from "react"
 import classNames from "classnames"
-import {
-  FlickingEvent,
-  SelectEvent,
-  ChangeEvent,
-  NeedPanelEvent,
-} from "@egjs/flicking"
 import Flicking from "@egjs/react-flicking"
 
 export default function Scroll({ children, className }) {
@@ -16,6 +9,7 @@ export default function Scroll({ children, className }) {
       moveType="freeScroll"
       bound
       horizontal
+      zIndex={1}
       tag="div"
       className={classNames("w-full", className)}
     >
