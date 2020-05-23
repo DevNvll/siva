@@ -38,7 +38,7 @@ export default function Index({
 
   const isFavorite =
     !notFound && Boolean(favorites.find((p) => p.pk === profile.pk))
-  const hasStories = false
+  const hasStories = !notFound && !isPrivate && stories.length >= 1
 
   useEffect(() => {
     if (!process.browser || notFound) return
@@ -80,8 +80,7 @@ export default function Index({
   }
 
   async function openStories() {
-    const res = await fetch("/api/stories?username=" + profile.pk)
-    const data = await res.json()
+    const data = stories
     setOpenedImage(
       data.map((m) => {
         const isVideo = m.media_type === 2
@@ -214,14 +213,16 @@ export async function getServerSideProps(context) {
 
     const { results: posts, nextMaxId: nextMaxId } = await getPosts(profile.pk)
 
-    console.log(profile)
-
     const highlights = await getHighlights(profile.pk)
 
+    const stories = await getStories(profile.pk)
+
     return {
-      props: { profile, posts, nextMaxId, highlights },
+      props: { profile, posts, nextMaxId, highlights, stories },
     }
   } catch (err) {
-    return { props: { notFound: true, username: context.query.username } }
+    return {
+      props: { notFound: true, username: context.query.username, stories: [] },
+    }
   }
 }
