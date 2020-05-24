@@ -105,7 +105,7 @@ export default function Index({
           >
             <Carousel
               views={carouselImages}
-              components={{ View: ViewComponent, Header: HeaderComponent }}
+              components={{ View: ViewComponent, Footer: HeaderComponent }}
             />
           </Modal>
         ) : null}
