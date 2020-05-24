@@ -38,7 +38,17 @@ export default function MediaCard({ media, setOpenedImage }) {
             style={{ height: "500px" }}
             src={currentUrl}
             onClick={() => {
-              setOpenedImage([{ url: externalCurrentUrl }])
+              setOpenedImage(
+                !isCarousel
+                  ? [{ url: externalCurrentUrl }]
+                  : media.carousel_media.map((o) => ({
+                      url:
+                        o.media_type === 2
+                          ? o.video_versions[0].url
+                          : o.image_versions2.candidates[0].url,
+                    })),
+                index
+              )
             }}
           />
         )}

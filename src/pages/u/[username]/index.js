@@ -35,6 +35,7 @@ export default function Index({
   const [favorites, setFavorites] = useLocalStorage("favorites", [])
   const [carouselImages, setCaroulselImages] = useState(null)
   const [modalOpened, setModalOpened] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   const isFavorite =
     !notFound && Boolean(favorites.find((p) => p.pk === profile.pk))
@@ -64,7 +65,8 @@ export default function Index({
     }
   }
 
-  function setOpenedImage(urls, video) {
+  function setOpenedImage(urls, index) {
+    setCurrentIndex(index)
     if (!urls) {
       setModalOpened(false)
       return
@@ -101,9 +103,13 @@ export default function Index({
           <Modal
             onClose={() => {
               setOpenedImage(null)
+              setCurrentIndex(0)
             }}
+            closeOnBackdropClick
+            closeOnEsc
           >
             <Carousel
+              currentIndex={currentIndex}
               views={carouselImages}
               components={{ View: ViewComponent, Footer: HeaderComponent }}
             />
