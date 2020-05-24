@@ -64,16 +64,19 @@ export default function Scroll({ children, className }) {
 
   function onLeft() {
     const element = ref.current
-    setHasScrollSides([element.scrollLeft <= 300 ? false : true, true])
     scrollLeft(element, -300, 500)
   }
 
   function onRight() {
     const element = ref.current
+    scrollLeft(element, 300, 500)
+  }
+
+  function handleScroll(e) {
+    const element = e.currentTarget
     const hasFullyScrolled =
-      element.scrollWidth - (element.scrollLeft + 300) <= element.clientWidth
-    setHasScrollSides([true, !hasFullyScrolled])
-    scrollLeft(ref.current, 300, 500)
+      element.scrollWidth - element.scrollLeft <= element.clientWidth
+    setHasScrollSides([element.scrollLeft, !hasFullyScrolled])
   }
 
   return (
@@ -91,7 +94,11 @@ export default function Scroll({ children, className }) {
           <ChevronLeft className="w-8 h-8" />
         </button>
       </div>
-      <div className="flex inline overflow-x-auto md:overflow-hidden" ref={ref}>
+      <div
+        className="flex inline overflow-x-auto md:overflow-hidden"
+        ref={ref}
+        onScroll={handleScroll}
+      >
         {children}
       </div>
       <div
