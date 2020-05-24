@@ -1,6 +1,6 @@
 import React from "react"
 import classNames from "classnames"
-export function FooterComponent({ views, currentIndex }) {
+export function HeaderComponent({ views, currentIndex }) {
   return views.length > 1 ? (
     <div className="fixed top-0 inline-flex self-center justify-center w-full mt-2 space-x-1 text-black">
       {views.map((v, i) => {

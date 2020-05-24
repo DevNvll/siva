@@ -18,7 +18,7 @@ import getPosts from "../../../instagram/getFeed"
 import getStories from "../../../instagram/getStories"
 import getHighlights from "../../../instagram/getHighlights"
 import { useLocalStorage } from "../../../utils/storageService"
-import { FooterComponent } from "../../../components/Modal/FooterComponent"
+import { HeaderComponent } from "../../../components/Modal/HeaderComponent"
 import { ViewComponent } from "../../../components/Modal/ViewComponent"
 
 export default function Index({
@@ -105,7 +105,7 @@ export default function Index({
           >
             <Carousel
               views={carouselImages}
-              components={{ View: ViewComponent, Footer: FooterComponent }}
+              components={{ View: ViewComponent, Header: HeaderComponent }}
             />
           </Modal>
         ) : null}

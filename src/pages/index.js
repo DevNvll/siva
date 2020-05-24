@@ -79,7 +79,7 @@ export default function Index() {
           </form>
           {Boolean(favorites.length) && !isMobile ? (
             <div className="mt-4">
-              <Scroll>
+              <Scroll className="w-full">
                 <div className="inline-flex space-x-4">
                   {favorites.map((f, i) => {
                     return (

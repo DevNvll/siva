@@ -1,4 +1,5 @@
-import { useRef } from "react"
+import { useRef, useLayoutEffect, useState } from "react"
+import classNames from "classnames"
 
 function ChevronRight({ className }) {
   return (
@@ -36,8 +37,6 @@ function scrollLeft(element, change, duration) {
     currentTime = 0,
     increment = 20
 
-  console.log(start)
-
   var animateScroll = function () {
     currentTime += increment
     var val = Math.easeInOutQuad(currentTime, start, change, duration)
@@ -49,8 +48,14 @@ function scrollLeft(element, change, duration) {
   animateScroll()
 }
 
-export default function Scroll({ children, className, items }) {
+export default function Scroll({ children, className }) {
   const ref = useRef()
+  const [hasScroll, setHasScroll] = useState(false)
+
+  useLayoutEffect(() => {
+    setHasScroll(ref.current.scrollWidth > ref.current.clientWidth)
+  }, [])
+
   function onLeft() {
     scrollLeft(ref.current, -300, 500)
   }
@@ -60,10 +65,13 @@ export default function Scroll({ children, className, items }) {
   }
 
   return (
-    <div className={"inline-flex w-full " + className}>
+    <div className={"inline-flex " + className}>
       <button
         onClick={onLeft}
-        className="pl-2 text-white rounded opacity-75 hover:opacity-100 focus:outline-none"
+        className={classNames(
+          "pl-2 text-white rounded opacity-75 hover:opacity-100 focus:outline-none",
+          { hidden: !hasScroll }
+        )}
       >
         <ChevronLeft className="w-8 h-8 mr-4" />
       </button>
@@ -72,7 +80,10 @@ export default function Scroll({ children, className, items }) {
       </div>
       <button
         onClick={onRight}
-        className="pr-2 text-white rounded opacity-75 hover:opacity-100 focus:outline-none"
+        className={classNames(
+          "pr-2 text-white rounded opacity-75 hover:opacity-100 focus:outline-none",
+          { hidden: !hasScroll }
+        )}
       >
         <ChevronRight className="w-8 h-8 ml-4" />
       </button>

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import classNames from "classnames"
-import Link from "next/link"
 import Scroll from "../Scroll"
 
 export default function Stories({ stories, username, openStories }) {
@@ -23,8 +22,8 @@ export default function Stories({ stories, username, openStories }) {
   }
 
   return (
-    <div className="flex items-center self-center justify-center w-full md:w-3/5">
-      <Scroll className="self-center">
+    <div className="flex items-center justify-center w-full">
+      <Scroll className="w-full max-w-4xl mx-auto md:w-auto">
         <div className="inline-flex space-x-4 ">
           {stories.map((s, m) => {
             return (
