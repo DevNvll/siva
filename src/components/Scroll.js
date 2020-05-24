@@ -51,42 +51,62 @@ function scrollLeft(element, change, duration) {
 export default function Scroll({ children, className }) {
   const ref = useRef()
   const [hasScroll, setHasScroll] = useState(false)
+  const [[hasScrollLeft, hasScrollRight], setHasScrollSides] = useState([
+    false,
+    false,
+  ])
 
   useLayoutEffect(() => {
-    setHasScroll(ref.current.scrollWidth > ref.current.clientWidth)
+    const element = ref.current
+    setHasScrollSides([element.scrollLeft > 0, true])
+    setHasScroll(element.scrollWidth > element.clientWidth)
   }, [])
 
   function onLeft() {
-    scrollLeft(ref.current, -300, 500)
+    const element = ref.current
+    setHasScrollSides([element.scrollLeft <= 300 ? false : true, true])
+    scrollLeft(element, -300, 500)
   }
 
   function onRight() {
+    const element = ref.current
+    const hasFullyScrolled =
+      element.scrollWidth - (element.scrollLeft + 300) <= element.clientWidth
+    setHasScrollSides([true, !hasFullyScrolled])
     scrollLeft(ref.current, 300, 500)
   }
 
   return (
-    <div className={"inline-flex " + className}>
-      <button
+    <div className={"inline-flex relative " + className}>
+      <div
+        className="absolute left-0 flex flex-col h-full px-2 opacity-75 cursor-pointer hover:opacity-100"
         onClick={onLeft}
-        className={classNames(
-          "pl-2 text-white rounded opacity-75 hover:opacity-100 focus:outline-none",
-          { hidden: !hasScroll }
-        )}
       >
-        <ChevronLeft className="w-8 h-8 mr-4" />
-      </button>
+        <button
+          className={classNames(
+            "text-purple-500 rounded-full focus:outline-none bg-gray-100 my-auto shadow-xl",
+            { hidden: !hasScroll || !hasScrollLeft }
+          )}
+        >
+          <ChevronLeft className="w-8 h-8" />
+        </button>
+      </div>
       <div className="flex inline overflow-x-auto md:overflow-hidden" ref={ref}>
         {children}
       </div>
-      <button
+      <div
+        className="absolute right-0 flex flex-col h-full px-2 opacity-75 cursor-pointer hover:opacity-100"
         onClick={onRight}
-        className={classNames(
-          "pr-2 text-white rounded opacity-75 hover:opacity-100 focus:outline-none",
-          { hidden: !hasScroll }
-        )}
       >
-        <ChevronRight className="w-8 h-8 ml-4" />
-      </button>
+        <button
+          className={classNames(
+            "text-purple-500 rounded-full focus:outline-none bg-gray-100 my-auto shadow-xl",
+            { hidden: !hasScroll || !hasScrollRight }
+          )}
+        >
+          <ChevronRight className="w-8 h-8" />
+        </button>
+      </div>
     </div>
   )
 }

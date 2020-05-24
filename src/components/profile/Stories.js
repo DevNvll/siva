@@ -23,7 +23,7 @@ export default function Stories({ stories, username, openStories }) {
 
   return (
     <div className="flex items-center justify-center w-full">
-      <Scroll className="w-full max-w-4xl mx-auto md:w-auto">
+      <Scroll className="w-full max-w-4xl px-4 mx-auto md:w-auto">
         <div className="inline-flex space-x-4 ">
           {stories.map((s, m) => {
             return (
