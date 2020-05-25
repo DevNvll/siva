@@ -109,6 +109,7 @@ export default function Index({
             closeOnEsc
           >
             <Carousel
+              hideControlsWhenIdle={false}
               currentIndex={currentIndex}
               views={carouselImages}
               components={{ View: ViewComponent, Footer: HeaderComponent }}
